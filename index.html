@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ridconnect — Connect. Ride. Deliver.</title>
+<meta name="description" content="Find nearby Keke Napep operators, move luggage or goods across Suleja and nearby towns.">
+<meta name="theme-color" content="#1650C9">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ ICON SPRITE (single professional line-icon set — no emoji) ============ -->
+<svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true">
+  <symbol id="icon-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-4.8-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-ticket" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a1.5 1.5 0 0 0 0 3v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a1.5 1.5 0 0 0 0-3V8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 6v12" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.4 2.4"/></symbol>
+  <symbol id="icon-message" viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4.4 3.3A.5.5 0 0 1 4 20V6a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-ride" viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 10V8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="7.5" cy="17.5" r="1.6" fill="currentColor"/><circle cx="16.5" cy="17.5" r="1.6" fill="currentColor"/></symbol>
+  <symbol id="icon-luggage" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="icon-box" viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3 8.5V16l9 4.5 9-4.5V8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 13v7.5" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-steer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><path d="M12 5.5v3.6M6.8 15.7l3-2M17.2 15.7l-3-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24"><path d="M5 12.5 9.5 17 19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.7-4.3 4.1 1.1 5.9L12 16.7 6.7 19.6l1.1-5.9-4.3-4.1 5.9-.7L12 3.5Z" fill="currentColor"/></symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 12h17M12 3.5c2.6 2.4 4 5.4 4 8.5s-1.4 6.1-4 8.5c-2.6-2.4-4-5.4-4-8.5s1.4-6.1 4-8.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="icon-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 9.3a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .8-1 1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="16.8" r="0.9" fill="currentColor"/></symbol>
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- ============ OFFLINE BANNER ============ -->
+<div id="offlineBanner" class="offline-banner hidden" role="status">
+  <span class="dot"></span> You're offline — showing cached data. Some actions will queue until you're back online.
+</div>
+
+<!-- ============ TOP APP BAR ============ -->
+<header class="appbar">
+  <div class="appbar__inner container">
+    <button class="appbar__brand" data-nav="home" aria-label="Ridconnect home">
+      <span class="logo-mark">R</span>
+      <span class="logo-word">Ridconnect</span>
+    </button>
+
+    <nav class="appbar__nav" aria-label="Primary">
+      <button data-nav="home" class="navlink" data-i18n="nav.home">Home</button>
+      <button data-nav="search" class="navlink" data-i18n="nav.findRide">Find a Ride</button>
+      <button data-nav="goods" class="navlink" data-i18n="nav.moveGoods">Move Goods</button>
+      <button data-nav="transporter" class="navlink" data-i18n="nav.forTransporters">For Transporters</button>
+      <button data-nav="admin" class="navlink navlink--muted" data-i18n="nav.admin">Admin</button>
+    </nav>
+
+    <div class="appbar__actions">
+      <button id="langToggle" class="btn btn--ghost btn--sm" aria-label="Switch language">HA</button>
+      <span id="roleChip" class="role-chip hidden"></span>
+      <button id="authBtn" class="btn btn--ghost" data-nav="auth">Sign in</button>
+    </div>
+
+    <button class="appbar__menu-btn" id="drawerOpenBtn" aria-label="Open menu">
+      <svg class="icon"><use href="#icon-menu"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ MOBILE ACCOUNT / NAV DRAWER ============ -->
+<div id="navDrawer" class="drawer hidden" aria-hidden="true">
+  <div class="drawer__backdrop" id="drawerBackdrop"></div>
+  <div class="drawer__panel" role="dialog" aria-label="Menu">
+    <div class="drawer__header">
+      <div class="drawer__identity">
+        <span id="drawerAvatarInitials" class="avatar-chip avatar-chip--lg"><svg class="icon"><use href="#icon-user"/></svg></span>
+        <div>
+          <p id="drawerName" class="drawer__name">Guest</p>
+          <p id="drawerRole" class="drawer__role">Not signed in</p>
+        </div>
+      </div>
+      <button class="drawer__close" id="drawerCloseBtn" aria-label="Close menu"><svg class="icon"><use href="#icon-close"/></svg></button>
+    </div>
+
+    <nav class="drawer__nav">
+      <button class="drawer__item" data-nav="home" data-drawer-close>
+        <svg class="icon"><use href="#icon-home"/></svg><span data-i18n="nav.home">Home</span>
+      </button>
+      <button class="drawer__item" data-nav="goods" data-drawer-close>
+        <svg class="icon"><use href="#icon-box"/></svg><span data-i18n="nav.moveGoods">Move Goods</span>
+      </button>
+      <button class="drawer__item" data-nav="transporter" data-drawer-close>
+        <svg class="icon"><use href="#icon-steer"/></svg><span data-i18n="nav.forTransporters">For Transporters</span>
+      </button>
+      <button class="drawer__item" data-nav="admin" data-drawer-close>
+        <svg class="icon"><use href="#icon-user"/></svg><span data-i18n="nav.admin">Admin</span>
+      </button>
+      <button class="drawer__item" data-nav="support" data-drawer-close>
+        <svg class="icon"><use href="#icon-help"/></svg><span data-i18n="support.title">Need help?</span>
+      </button>
+    </nav>
+
+    <button class="drawer__item drawer__item--lang" id="drawerLangToggle">
+      <svg class="icon"><use href="#icon-globe"/></svg>
+      <span>Language</span>
+      <span class="drawer__lang-value" id="drawerLangValue">English</span>
+      <svg class="icon"><use href="#icon-chevron-right"/></svg>
+    </button>
+
+    <button class="btn btn--primary btn--block" id="drawerAuthBtn" data-drawer-close>Sign in</button>
+  </div>
+</div>
+
+<main id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="screen-home" class="screen">
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow" data-i18n="hero.eyebrow">Suleja · Kwamba · Madalla &amp; nearby towns</p>
+          <h1><span data-i18n="hero.titleLine">Connect. Ride.</span> <span class="accent" data-i18n="hero.titleAccent">Deliver.</span></h1>
+          <p class="hero__sub" data-i18n="hero.sub">Find nearby transport operators for passengers, luggage and goods — verified, rated, and ready to move.</p>
+
+          <form id="quickSearchForm" class="quick-search" autocomplete="off">
+            <div class="quick-search__row">
+              <label class="field">
+                <span class="field__label" data-i18n="common.pickup">Pickup</span>
+                <input id="qPickup" type="text" placeholder="e.g. Suleja Central" required>
+              </label>
+              <label class="field">
+                <span class="field__label" data-i18n="common.destination">Destination</span>
+                <input id="qDestination" type="text" placeholder="e.g. Kwamba">
+              </label>
+            </div>
+            <div class="quick-search__actions">
+              <button type="submit" class="btn btn--primary btn--lg" data-i18n="nav.findRide">Find a Ride</button>
+              <button type="button" class="btn btn--secondary btn--lg" data-nav="goods" data-i18n="nav.moveGoods">Move Goods</button>
+            </div>
+          </form>
+
+          <button class="text-link" data-nav="transporter-onboard" data-i18n="hero.joinTransporter">Join as a Transporter →</button>
+        </div>
+
+        <div class="hero__panel" aria-hidden="true">
+          <div class="stat-card">
+            <p class="stat-card__value" id="statOperators">—</p>
+            <p class="stat-card__label" data-i18n="hero.statOperators">Operators near Suleja</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value" id="statTrips">—</p>
+            <p class="stat-card__label" data-i18n="hero.statTrips">Trips completed (demo)</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value rating-inline"><svg class="icon icon--star"><use href="#icon-star"/></svg>4.8</p>
+            <p class="stat-card__label" data-i18n="hero.statRating">Average operator rating</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section">
+      <h2 class="section__title" data-i18n="home.categoryTitle">What do you need to move?</h2>
+      <div class="category-grid">
+        <button class="category-card" data-nav="search">
+          <span class="category-card__icon"><svg class="icon"><use href="#icon-ride"/></svg></span>
+          <span class="category-card__title" data-i18n="category.rideTitle">A Ride</span>
+          <span class="category-card__desc" data-i18n="category.rideDesc">Nearby Keke Napep operators for you and your passengers.</span>
+        </button>
+        <button class="category-card" data-nav="luggage">
+          <span class="category-card__icon"><svg class="icon"><use href="#icon-luggage"/></svg></span>
+          <span class="category-card__title" data-i18n="category.luggageTitle">Luggage</span>
+          <span class="category-card__desc" data-i18n="category.luggageDesc">Move bags, parcels and personal items between locations.</span>
+        </button>
+        <button class="category-card" data-nav="goods">
+          <span class="category-card__icon"><svg class="icon"><use href="#icon-box"/></svg></span>
+          <span class="category-card__title" data-i18n="category.goodsTitle">Goods &amp; Cargo</span>
+          <span class="category-card__desc" data-i18n="category.goodsDesc">Shop and business goods transported reliably.</span>
+        </button>
+        <button class="category-card" data-nav="transporter-onboard">
+          <span class="category-card__icon"><svg class="icon"><use href="#icon-steer"/></svg></span>
+          <span class="category-card__title" data-i18n="category.operatorTitle">Become an Operator</span>
+          <span class="category-card__desc" data-i18n="category.operatorDesc">Publish your availability and start receiving requests.</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="container section section--how">
+      <h2 class="section__title" data-i18n="how.title">How Ridconnect works</h2>
+      <ol class="steps">
+        <li><span class="steps__num">1</span><div><h3 data-i18n="how.step1Title">Tell us where</h3><p data-i18n="how.step1Desc">Enter pickup, destination and what you're moving.</p></div></li>
+        <li><span class="steps__num">2</span><div><h3 data-i18n="how.step2Title">Compare nearby operators</h3><p data-i18n="how.step2Desc">See availability, capacity, rating and estimated fare.</p></div></li>
+        <li><span class="steps__num">3</span><div><h3 data-i18n="how.step3Title">Request &amp; connect</h3><p data-i18n="how.step3Desc">Operator accepts, contact details unlock, trip begins.</p></div></li>
+        <li><span class="steps__num">4</span><div><h3 data-i18n="how.step4Title">Track &amp; rate</h3><p data-i18n="how.step4Desc">Follow status to completion, then leave a review.</p></div></li>
+      </ol>
+    </section>
+
+
+    <section class="container section section--trust">
+      <h2 class="section__title">Built on trust</h2>
+      <div class="trust-grid">
+        <div class="trust-card"><strong>Verified badges</strong><p>Operators go through a phone &amp; profile verification flow before being marked Verified on Ridconnect.</p></div>
+        <div class="trust-card"><strong>Ratings that matter</strong><p>Every completed trip can be rated — reputations are earned, not bought.</p></div>
+        <div class="trust-card"><strong>Controlled contact</strong><p>Numbers aren't shared until a request is accepted, reducing spam and misuse.</p></div>
+      </div>
+      <p class="fine-print">"Verified on Ridconnect" reflects our own in-app checks only — it is not a government, association or professional certification unless explicitly stated.</p>
+    </section>
+
+    <section class="container section section--faq">
+      <h2 class="section__title">Frequently asked</h2>
+      <details><summary>Is this a working payment system?</summary><p>This build is a frontend demo. Requests, availability and ratings are simulated and stored on your device — no real payments or SMS are sent. See the badge on trip flows for "Demo" labeling.</p></details>
+      <details><summary>Which towns are covered today?</summary><p>Suleja, Kwamba, Madalla and nearby configured towns. New cities are added by an administrator without code changes.</p></details>
+      <details><summary>How do operators get verified?</summary><p>Operators submit basic profile and vehicle information for review. Verification status is shown clearly on every profile.</p></details>
+    </section>
+  </section>
+
+  <!-- ============ AUTH / ROLE SELECTION ============ -->
+  <section id="screen-auth" class="screen">
+    <div class="container narrow section">
+      <h1 class="page-title" data-i18n="auth.title">Sign in to Ridconnect</h1>
+      <p class="page-sub" data-i18n="auth.sub">Demo authentication — no password is transmitted anywhere. Pick a role to explore that experience.</p>
+      <form id="authForm" class="card form-card">
+        <label class="field">
+          <span class="field__label" data-i18n="auth.fullName">Full name</span>
+          <input id="authName" type="text" placeholder="e.g. Abdul Musa" required>
+        </label>
+        <label class="field">
+          <span class="field__label" data-i18n="common.phone">Phone number</span>
+          <input id="authPhone" type="tel" placeholder="080X XXX XXXX" required>
+        </label>
+        <label class="field">
+          <span class="field__label">4-digit PIN</span>
+          <input id="authPin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="••••" required>
+        </label>
+        <label class="field">
+          <span class="field__label" data-i18n="auth.emergencyContact">Emergency contact phone (optional)</span>
+          <input id="authEmergencyContact" type="tel" placeholder="Someone to notify if a trip feels unsafe">
+        </label>
+        <fieldset class="field">
+          <legend class="field__label" data-i18n="auth.roleLegend">I want to use Ridconnect as a…</legend>
+          <div class="role-grid">
+            <label class="role-option"><input type="radio" name="role" value="passenger" checked><span data-i18n="role.passenger">Passenger</span></label>
+            <label class="role-option"><input type="radio" name="role" value="goods_owner"><span data-i18n="role.goodsOwner">Goods / Luggage Owner</span></label>
+            <label class="role-option"><input type="radio" name="role" value="transporter"><span data-i18n="role.transporter">Keke Operator / Transporter</span></label>
+            <label class="role-option"><input type="radio" name="role" value="admin"><span data-i18n="role.admin">Admin (demo)</span></label>
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn--primary btn--lg btn--block" data-i18n="common.continue">Continue</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ RIDE SEARCH ============ -->
+  <section id="screen-search" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="search.title">Where do you want to go?</h1>
+      <form id="rideSearchForm" class="card form-card form-card--wide">
+        <div class="form-grid">
+          <label class="field"><span class="field__label">Pickup location</span><input id="rsPickup" type="text" required placeholder="e.g. Suleja Central"></label>
+          <label class="field"><span class="field__label">Destination</span><input id="rsDestination" type="text" placeholder="e.g. Madalla"></label>
+          <label class="field"><span class="field__label">Date</span><input id="rsDate" type="date"></label>
+          <label class="field"><span class="field__label">Preferred time</span><input id="rsTime" type="time"></label>
+          <label class="field"><span class="field__label">Passengers</span><input id="rsPassengers" type="number" min="1" max="6" value="1"></label>
+          <label class="field"><span class="field__label">Search radius</span>
+            <select id="rsRadius">
+              <option value="1">1 km</option>
+              <option value="3" selected>3 km</option>
+              <option value="5">5 km</option>
+              <option value="10">10 km</option>
+              <option value="20">20 km</option>
+            </select>
+          </label>
+        </div>
+        <label class="checkbox-field"><input id="rsLuggage" type="checkbox"> I also have luggage with me</label>
+        <button type="submit" class="btn btn--primary btn--lg">Search Nearby Rides</button>
+      </form>
+
+      <div id="rideResults" class="results"></div>
+    </div>
+  </section>
+
+  <!-- ============ LUGGAGE REQUEST ============ -->
+  <section id="screen-luggage" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="luggage.title">Move Luggage</h1>
+      <p class="page-sub">Tell us what you're moving so we can match the right operator.</p>
+      <form id="luggageForm" class="card form-card form-card--wide">
+        <div class="form-grid">
+          <label class="field"><span class="field__label">Pickup</span><input id="lgPickup" type="text" required></label>
+          <label class="field"><span class="field__label">Destination</span><input id="lgDestination" type="text" required></label>
+          <label class="field"><span class="field__label">Luggage type</span>
+            <select id="lgType"><option>Bags / Suitcases</option><option>Boxes</option><option>Furniture item</option><option>Mixed</option></select>
+          </label>
+          <label class="field"><span class="field__label">Number of items</span><input id="lgCount" type="number" min="1" value="1"></label>
+          <label class="field"><span class="field__label">Weight category</span>
+            <select id="lgWeight"><option>Light (&lt;10kg)</option><option>Medium (10–30kg)</option><option>Heavy (30kg+)</option></select>
+          </label>
+          <label class="field"><span class="field__label">Preferred date</span><input id="lgDate" type="date"></label>
+          <label class="field"><span class="field__label">Preferred time</span><input id="lgTime" type="time"></label>
+        </div>
+        <label class="field"><span class="field__label">Special instructions (optional)</span><textarea id="lgNotes" rows="2"></textarea></label>
+        <button type="submit" class="btn btn--primary btn--lg">Find Suitable Transporters</button>
+      </form>
+      <div id="luggageResults" class="results"></div>
+    </div>
+  </section>
+
+  <!-- ============ GOODS REQUEST ============ -->
+  <section id="screen-goods" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="goods.title">Move Goods</h1>
+      <p class="page-sub">For shop, business and personal cargo. Prohibited items are never permitted — see policy below.</p>
+      <form id="goodsForm" class="card form-card form-card--wide">
+        <div class="form-grid">
+          <label class="field"><span class="field__label">Pickup location</span><input id="gdPickup" type="text" required></label>
+          <label class="field"><span class="field__label">Destination</span><input id="gdDestination" type="text" required></label>
+          <label class="field"><span class="field__label">Goods category</span>
+            <select id="gdCategory"><option>Shop / retail goods</option><option>Building materials</option><option>Farm produce</option><option>Household items</option><option>Other permitted goods</option></select>
+          </label>
+          <label class="field"><span class="field__label">Quantity / packages</span><input id="gdQty" type="number" min="1" value="1"></label>
+          <label class="field"><span class="field__label">Approx. weight</span>
+            <select id="gdWeightClass"><option>Under 20kg</option><option>20–100kg</option><option>100–300kg</option><option>300kg+</option></select>
+          </label>
+          <label class="field"><span class="field__label">Required vehicle type</span>
+            <select id="gdVehicle"><option>Keke Napep (cargo)</option><option>Mini van</option><option>Pickup truck</option><option>Any suitable vehicle</option></select>
+          </label>
+          <label class="field"><span class="field__label">Pickup date</span><input id="gdDate" type="date"></label>
+          <label class="field"><span class="field__label">Delivery deadline</span><input id="gdDeadline" type="date"></label>
+        </div>
+        <label class="field"><span class="field__label">Special instructions (optional)</span><textarea id="gdNotes" rows="2"></textarea></label>
+        <p class="fine-print">Prohibited: illegal substances, weapons, hazardous or flammable materials, and any goods restricted by law. Requests describing prohibited items will be rejected.</p>
+        <button type="submit" class="btn btn--primary btn--lg">Search Suitable Transporters</button>
+      </form>
+      <div id="goodsResults" class="results"></div>
+    </div>
+  </section>
+
+  <!-- ============ OPERATOR PROFILE (modal-like screen) ============ -->
+  <section id="screen-profile" class="screen">
+    <div class="container narrow section" id="profileContent"></div>
+  </section>
+
+  <!-- ============ TRANSPORTER ONBOARDING ============ -->
+  <section id="screen-transporter-onboard" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="onboard.title">Join as a Transporter</h1>
+      <p class="page-sub">Publish your availability and start receiving ride, luggage and goods requests near you.</p>
+      <form id="onboardForm" class="card form-card form-card--wide">
+        <div class="form-grid">
+          <label class="field"><span class="field__label">Operator / business name</span><input id="obName" type="text" required></label>
+          <label class="field"><span class="field__label">Phone number</span><input id="obPhone" type="tel" required></label>
+          <label class="field"><span class="field__label">Vehicle type</span>
+            <select id="obVehicle"><option>Keke Napep (passenger)</option><option>Keke Napep (cargo)</option><option>Mini van</option><option>Pickup truck</option></select>
+          </label>
+          <label class="field"><span class="field__label">Passenger capacity</span><input id="obPaxCap" type="number" min="0" value="3"></label>
+          <label class="field"><span class="field__label">Luggage capacity</span>
+            <select id="obLuggageCap"><option>Low</option><option selected>Medium</option><option>High</option></select>
+          </label>
+          <label class="field"><span class="field__label">Goods capacity</span>
+            <select id="obGoodsCap"><option>None</option><option selected>Light cargo</option><option>Heavy cargo</option></select>
+          </label>
+          <label class="field"><span class="field__label">Primary service area</span>
+            <select id="obServiceArea"></select>
+          </label>
+          <label class="field"><span class="field__label">Service radius</span>
+            <select id="obRadius"><option value="3">3 km</option><option value="5" selected>5 km</option><option value="10">10 km</option><option value="20">20 km</option></select>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--primary btn--lg">Submit for Verification</button>
+      </form>
+      <p class="fine-print">Verification is a lightweight demo check in this build — production verification must run server-side with real document handling.</p>
+    </div>
+  </section>
+
+  <!-- ============ TRANSPORTER DASHBOARD ============ -->
+  <section id="screen-transporter" class="screen">
+    <div class="container section">
+      <div class="dash-header">
+        <div>
+          <h1 class="page-title">Operator dashboard</h1>
+          <p class="page-sub" id="transporterWelcome">Manage your availability, schedule and requests.</p>
+        </div>
+        <div class="avail-toggle">
+          <span>Availability</span>
+          <label class="switch">
+            <input id="availToggle" type="checkbox">
+            <span class="switch__track"></span>
+          </label>
+          <span id="availLabel" class="badge badge--muted">Offline</span>
+        </div>
+      </div>
+
+      <div class="metric-row" id="transporterMetrics"></div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <h2>Set my schedule</h2>
+          <div class="schedule-days" id="scheduleDays"></div>
+          <label class="field"><span class="field__label">Service area</span><select id="tdServiceArea"></select></label>
+          <label class="field"><span class="field__label">Service radius</span>
+            <select id="tdRadius"><option value="3">3 km</option><option value="5">5 km</option><option value="10">10 km</option><option value="20">20 km</option></select>
+          </label>
+          <button id="saveScheduleBtn" class="btn btn--secondary">Save schedule</button>
+        </div>
+
+        <div class="card">
+          <h2>Incoming requests</h2>
+          <div id="incomingRequests" class="request-list"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>My trips</h2>
+        <div id="myTrips" class="request-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACCOUNT / PROFILE (passenger side) ============ -->
+  <section id="screen-account" class="screen">
+    <div class="container narrow section">
+      <h1 class="page-title" data-i18n="account.title">Your profile</h1>
+      <div class="card">
+        <div class="drawer__identity" style="margin-bottom:4px;">
+          <span id="accountAvatar" class="avatar-chip avatar-chip--lg"></span>
+          <div>
+            <p id="accountName" class="drawer__name" style="font-size:17px;">—</p>
+            <p id="accountRole" class="drawer__role">—</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <p class="fine-print" style="margin-bottom:2px;" data-i18n="account.phone">Phone number</p>
+        <p id="accountPhone" style="font-weight:700; color:var(--ink); margin-bottom:14px;">—</p>
+        <p class="fine-print" style="margin-bottom:2px;" data-i18n="account.emergencyContact">Emergency contact</p>
+        <p id="accountEmergency" style="font-weight:700; color:var(--ink);">—</p>
+      </div>
+      <div class="card">
+        <button class="drawer__item" data-nav="trips" style="padding-left:0;">
+          <svg class="icon"><use href="#icon-ticket"/></svg><span data-i18n="trips.title">Your trips &amp; requests</span>
+        </button>
+        <button class="drawer__item" data-nav="support" style="padding-left:0;">
+          <svg class="icon"><use href="#icon-help"/></svg><span data-i18n="support.title">Need help?</span>
+        </button>
+        <button class="drawer__item" data-nav="transporter-onboard" style="padding-left:0;">
+          <svg class="icon"><use href="#icon-steer"/></svg><span data-i18n="category.operatorTitle">Become an Operator</span>
+        </button>
+      </div>
+      <button class="btn btn--ghost btn--block" id="accountSignOutBtn">Sign out</button>
+    </div>
+  </section>
+
+  <!-- ============ TRIPS (passenger/goods owner side) ============ -->
+  <section id="screen-trips" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="trips.title">Your trips &amp; requests</h1>
+      <div id="userTrips" class="request-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ MESSAGES (placeholder, contact reveal) ============ -->
+  <section id="screen-messages" class="screen">
+    <div class="container section">
+      <h1 class="page-title" data-i18n="messages.title">Messages</h1>
+      <p class="page-sub">Contact details unlock here once a request is accepted.</p>
+      <div id="messagesList" class="request-list"></div>
+    </div>
+  </section>
+
+  <!-- ============ SUPPORT ============ -->
+  <section id="screen-support" class="screen">
+    <div class="container narrow section">
+      <h1 class="page-title" data-i18n="support.title">Need help?</h1>
+      <p class="page-sub">We handle support personally at this stage — reach us directly.</p>
+      <div class="card">
+        <p><strong>WhatsApp</strong><br>+234 800 000 0000</p>
+        <p><strong>Phone</strong><br>+234 800 000 0000</p>
+        <p><strong>Email</strong><br>support@ridconnect.demo</p>
+      </div>
+      <div class="card">
+        <h2>Report a problem</h2>
+        <p class="page-sub">For a specific transporter or trip, use the Report button on their profile or trip. For anything else, message us directly above.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADMIN DASHBOARD ============ -->
+  <section id="screen-admin" class="screen">
+    <div class="container section">
+      <h1 class="page-title">Admin dashboard</h1>
+      <p class="page-sub">Platform-wide metrics and management (demo data).</p>
+      <div class="metric-row" id="adminMetrics"></div>
+
+      <div class="tabs" id="adminTabs">
+        <button class="tab is-active" data-tab="operators">Transporters</button>
+        <button class="tab" data-tab="requests">Requests &amp; Trips</button>
+        <button class="tab" data-tab="reports">Reports</button>
+        <button class="tab" data-tab="cities">Cities &amp; Service Areas</button>
+        <button class="tab" data-tab="settings">Settings</button>
+      </div>
+
+      <div class="tab-panel is-active" data-panel="operators">
+        <div class="filter-row">
+          <input id="adminOperatorSearch" type="text" placeholder="Search by name…">
+          <select id="adminOperatorStatus">
+            <option value="">All statuses</option>
+            <option value="VERIFIED">Verified</option>
+            <option value="PENDING">Pending</option>
+            <option value="UNVERIFIED">Unverified</option>
+            <option value="SUSPENDED">Suspended</option>
+            <option value="REJECTED">Rejected</option>
+          </select>
+        </div>
+        <div id="adminOperators" class="table-wrap"></div>
+      </div>
+      <div class="tab-panel" data-panel="requests">
+        <div class="filter-row">
+          <input id="adminRequestSearch" type="text" placeholder="Search by requester name…">
+          <select id="adminRequestStatus">
+            <option value="">All statuses</option>
+            <option value="REQUESTED">Requested</option>
+            <option value="ACCEPTED">Accepted</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DELIVERED">Delivered</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </div>
+        <div id="adminRequests" class="table-wrap"></div>
+      </div>
+      <div class="tab-panel" data-panel="reports">
+        <div id="adminReports" class="table-wrap"></div>
+      </div>
+      <div class="tab-panel" data-panel="cities">
+        <div class="card">
+          <h2>Add a service area</h2>
+          <div class="form-grid">
+            <label class="field"><span class="field__label">City</span>
+              <select id="newAreaCity"><option value="suleja">Suleja</option></select>
+            </label>
+            <label class="field"><span class="field__label">Area name</span><input id="newAreaName" type="text" placeholder="e.g. Iku"></label>
+          </div>
+          <button id="addAreaBtn" class="btn btn--secondary">Add area</button>
+        </div>
+        <div id="adminCities" class="table-wrap"></div>
+      </div>
+      <div class="tab-panel" data-panel="settings">
+        <div class="card">
+          <h2>Commission &amp; pricing</h2>
+          <label class="field"><span class="field__label">Default commission (%)</span><input id="settingCommission" type="number" min="0" max="100"></label>
+          <label class="field"><span class="field__label">Default search radius (km)</span><input id="settingRadius" type="number" min="1" max="50"></label>
+          <button id="saveSettingsBtn" class="btn btn--secondary">Save settings</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ TOAST / MODAL ROOT ============ -->
+<div id="toastRoot" class="toast-root" aria-live="polite"></div>
+<div id="modalRoot" class="modal-root hidden"></div>
+
+<!-- ============ BOTTOM NAV (mobile) ============ -->
+<nav class="bottomnav" aria-label="Primary mobile">
+  <button data-nav="home" class="bottomnav__item is-active"><svg class="icon"><use href="#icon-home"/></svg><span data-i18n="nav.home">Home</span></button>
+  <button data-nav="search" class="bottomnav__item"><svg class="icon"><use href="#icon-search"/></svg><span data-i18n="bottomnav.search">Search</span></button>
+  <button data-nav="trips" class="bottomnav__item"><svg class="icon"><use href="#icon-ticket"/></svg><span data-i18n="bottomnav.trips">Trips</span></button>
+  <button data-nav="messages" class="bottomnav__item"><svg class="icon"><use href="#icon-message"/></svg><span data-i18n="messages.title">Messages</span></button>
+  <button data-nav="account" class="bottomnav__item"><svg class="icon"><use href="#icon-user"/></svg><span data-i18n="bottomnav.profile">Profile</span></button>
+</nav>
+
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div>
+      <p class="logo-word">Ridconnect</p>
+      <p>"Connect. Ride. Deliver."</p>
+      <p class="fine-print">Frontend demo build. Not affiliated with any government agency or transport association.</p>
+    </div>
+    <div>
+      <h3 data-i18n="footer.product">Product</h3>
+      <button class="text-link" data-nav="search" data-i18n="nav.findRide">Find a Ride</button>
+      <button class="text-link" data-nav="goods" data-i18n="nav.moveGoods">Move Goods</button>
+      <button class="text-link" data-nav="transporter-onboard" data-i18n="footer.becomeOperator">Become an Operator</button>
+    </div>
+    <div>
+      <h3 data-i18n="footer.company">Company</h3>
+      <p>Suleja, Niger State, Nigeria</p>
+      <button class="text-link" data-nav="support" data-i18n="footer.needHelp">Need Help?</button>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
